@@ -1,7 +1,7 @@
 
 [tool.poetry]
 name = "inspectorio"
-version = "0.1.0"
+version = "0.2.0"
 description = "Python wrapper for the Inspectorio API"
 authors = ["Matthias Brenninkmeijer <matthias@brennotten.net>"]
 license = "MIT"
