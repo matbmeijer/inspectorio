@@ -23,6 +23,3 @@ pdoc = "^14.4.0"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
-
-[tool.poetry-dynamic-versioning]
-enable = true
