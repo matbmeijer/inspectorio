@@ -22,11 +22,11 @@ class AsyncInspectorioSight:
         Initializes the AsyncInspectorioSight client.
 
         Args:
-            :param base_url: The base URL for the Inspectorio Sight API. Can be one of
+            base_url: The base URL for the Inspectorio Sight API. Can be one of
                 three environments (production, pre-production, staging).
-            :param concurrent_fetches_limit: The maximum number of concurrent fetches
+            concurrent_fetches_limit: The maximum number of concurrent fetches
                 allowed. Cannot exceed 20 as per Inspectorio API guidelines.
-            :param kwargs: Additional keyword arguments to be passed to the
+            kwargs: Additional keyword arguments to be passed to the
                 `httpx.AsyncClient`.
 
         The Inspectorio API supports up to 20 concurrent asynchronous requests to
@@ -125,8 +125,8 @@ class AsyncInspectorioSight:
         A general method to fetch all items with pagination.
 
         Args:
-            :param fetch_function: The function to fetch data with pagination.
-            :param kwargs: Additional keyword arguments to pass to the fetch function.
+            fetch_function: The function to fetch data with pagination.
+            kwargs: Additional keyword arguments to pass to the fetch function.
 
         Returns:
             A list containing the returned dictionary of the used function
@@ -174,25 +174,25 @@ class AsyncInspectorioSight:
         and update timestamps. It also supports ordering and pagination of the results.
 
         Args:
-            :param offset (int, optional): The number of items to skip before starting to
+            offset (int, optional): The number of items to skip before starting to
                 collect the result set. Defaults to 0.
-            :param status (str, optional): Filter bookings by their status. Possible values
+            status (str, optional): Filter bookings by their status. Possible values
                 are "NEW", "WAIVED", "CONFIRMED", "REJECTED", "MERGED", "CANCELED".
                 Defaults to None.
-            :param to_organization_id (str, optional): Filter bookings that are booked to the
+            to_organization_id (str, optional): Filter bookings that are booked to the
                 specified organization ID. Defaults to None.
-            :param updated_from (str, optional): Filter bookings updated from this date and
+            updated_from (str, optional): Filter bookings updated from this date and
                 time in ISO 8601 format (YYYY-MM-DDTHH:MM:SSZ). Defaults to None.
-            :param created_to (str, optional): Filter bookings created up to this date and time
+            created_to (str, optional): Filter bookings created up to this date and time
                 in ISO 8601 format (YYYY-MM-DDTHH:MM:SSZ). Defaults to None.
-            :param order (str, optional): Specifies the order of the results. Defaults to
+            order (str, optional): Specifies the order of the results. Defaults to
                 "created_date:desc". Possible ordering is based on creation date,
                 either ascending or descending.
-            :param updated_to (str, optional): Filter bookings updated up to this date and time
+            updated_to (str, optional): Filter bookings updated up to this date and time
                 in ISO 8601 format (YYYY-MM-DDTHH:MM:SSZ). Defaults to None.
-            :param created_from (str, optional): Filter bookings created from this date and time
+            created_from (str, optional): Filter bookings created from this date and time
                 in ISO 8601 format (YYYY-MM-DDTHH:MM:SSZ). Defaults to None.
-            :param limit (int, optional): The maximum number of items to return. Defaults to 10,
+            limit (int, optional): The maximum number of items to return. Defaults to 10,
                 with a maximum allowable value of 100.
 
         Returns:
@@ -250,27 +250,27 @@ class AsyncInspectorioSight:
         asynchronous requests using the `list_bookings()` method.
 
         Args:
-            :param offset (int, optional): The number of items to skip before starting
+            offset (int, optional): The number of items to skip before starting
                 to collect the result set. Defaults to 0.
-            :param status (str, optional): Filter bookings by their status. Possible
+            status (str, optional): Filter bookings by their status. Possible
                 values are "NEW", "WAIVED", "CONFIRMED", "REJECTED", "MERGED",
                 "CANCELED". Defaults to None.
-            :param to_organization_id (str, optional): Filter bookings that are booked
+            to_organization_id (str, optional): Filter bookings that are booked
                 to the specified organization ID. Defaults to None.
-            :param updated_from (str, optional): Filter bookings updated from this date
+            updated_from (str, optional): Filter bookings updated from this date
                 and time in ISO 8601 format (YYYY-MM-DDTHH:MM:SSZ). Defaults to None.
-            :param created_to (str, optional): Filter bookings created up to this date
+            created_to (str, optional): Filter bookings created up to this date
                 and time in ISO 8601 format (YYYY-MM-DDTHH:MM:SSZ). Defaults to None.
-            :param order (str, optional): Specifies the order of the results. Defaults
+            order (str, optional): Specifies the order of the results. Defaults
                 to "created_date:desc". Possible ordering is based on creation date,
                 either ascending or descending.
-            :param updated_to (str, optional): Filter bookings updated up to this date
+            updated_to (str, optional): Filter bookings updated up to this date
                 and time in ISO 8601 format (YYYY-MM-DDTHH:MM:SSZ). Defaults to None.
-            :param created_from (str, optional): Filter bookings created from this date
+            created_from (str, optional): Filter bookings created from this date
                 and time in ISO 8601 format (YYYY-MM-DDTHH:MM:SSZ). Defaults to None.
-            :param limit (int, optional): The maximum number of items to return.
+            limit (int, optional): The maximum number of items to return.
                 Defaults to 10, with a maximum allowable value of 100.
-            :param total_safe_limit (int, optional): An optional parameter to test out
+            total_safe_limit (int, optional): An optional parameter to test out
                 if pagination is working correctly on a sample (e.g. 1000 extractions)
 
         Returns:
@@ -323,17 +323,17 @@ class AsyncInspectorioSight:
         List Purchase Orders with optional filters and pagination.
 
         Args:
-            :param po_number (str, optional): Purchase order number to be stored in
+            po_number (str, optional): Purchase order number to be stored in
                 Inspectorio. Defaults to None.
-            :param offset (int, optional): The number of items to skip before starting
+            offset (int, optional): The number of items to skip before starting
                 to collect the result set. Defaults to 0.
-            :param delivery_date_to (str, optional): Purchase order delivery date to in
+            delivery_date_to (str, optional): Purchase order delivery date to in
                 ISO 8601 format (YYYY-MM-DDTHH:MM:SSZ). Defaults to None.
-            :param delivery_date_from (str, optional): Purchase order delivery date
+            delivery_date_from (str, optional): Purchase order delivery date
                 from in ISO 8601 format (YYYY-MM-DDTHH:MM:SSZ). Defaults to None.
-            :param opo_number (str, optional): Original purchase order number stored in
+            opo_number (str, optional): Original purchase order number stored in
                 the client's system. Defaults to None.
-            :param limit (int, optional): The maximum number of items to return.
+            limit (int, optional): The maximum number of items to return.
                 Defaults to 10, with a maximum allowable value of 100.
 
         Returns:
@@ -364,19 +364,19 @@ class AsyncInspectorioSight:
         asynchronous requests using the `list_purchase_orders()` method.
 
         Args:
-            :param po_number (str, optional): Purchase order number to be stored in
+            po_number (str, optional): Purchase order number to be stored in
                 Inspectorio. Defaults to None.
-            :param offset (int, optional): The number of items to skip before starting
+            offset (int, optional): The number of items to skip before starting
                 to collect the result set. Defaults to 0.
-            :param delivery_date_to (str, optional): Purchase order delivery date to in
+            delivery_date_to (str, optional): Purchase order delivery date to in
                 ISO 8601 format (YYYY-MM-DDTHH:MM:SSZ). Defaults to None.
-            :param delivery_date_from (str, optional): Purchase order delivery date from
+            delivery_date_from (str, optional): Purchase order delivery date from
                 in ISO 8601 format (YYYY-MM-DDTHH:MM:SSZ). Defaults to None.
-            :param opo_number (str, optional): Original purchase order number stored in
+            opo_number (str, optional): Original purchase order number stored in
                 the client's system. Defaults to None.
-            :param limit (int, optional): The maximum number of items to return.
+            limit (int, optional): The maximum number of items to return.
                 Defaults to 10, with a maximum allowable value of 100.
-            :param total_safe_limit (int, optional): An optional parameter to test out
+            total_safe_limit (int, optional): An optional parameter to test out
                 if pagination is working correctly on a sample (e.g. 1000 extractions)
 
         Returns:
@@ -401,7 +401,7 @@ class AsyncInspectorioSight:
         Create a Purchase Order with the provided data.
 
         Args:
-            :param purchase_order_data (Dict[str, Any]): The data for the new purchase
+            purchase_order_data (Dict[str, Any]): The data for the new purchase
                 order. Must conform to the API's expected schema for purchase order
                 creation.
 
@@ -541,7 +541,7 @@ class AsyncInspectorioSight:
             limit (int): Maximum number of results to return per page. Default is
                 defined by DEFAULT_LIMIT.
             capa_status (Optional[Literal[...]]): CAPA status of the report for filtering.
-            :param total_safe_limit (int, optional): An optional parameter to test out
+            total_safe_limit (int, optional): An optional parameter to test out
                 if pagination is working correctly on a sample (e.g. 1000 extractions)
 
         Returns:
@@ -562,7 +562,7 @@ class AsyncInspectorioSight:
         Retrieve details for a specific report.
 
         Args:
-            :param report_id (str): The unique identifier for the report.
+            report_id (str): The unique identifier for the report.
 
         Returns:
             Dict[str, Any]: A dictionary containing the details of the report if the
@@ -590,13 +590,13 @@ class AsyncInspectorioSight:
         filtering factory risk profiles by date range and supports pagination.
 
         Args:
-            :param date_to (str): End date of the query range in yyyy-mm-dd format.
-            :param date_from (str): Start date of the query range in yyyy-mm-dd format.
-            :param offset (int, optional): The number of items to skip before starting to
+            date_to (str): End date of the query range in yyyy-mm-dd format.
+            date_from (str): Start date of the query range in yyyy-mm-dd format.
+            offset (int, optional): The number of items to skip before starting to
                 collect the result set. Defaults to 0.
-            :param limit (int, optional): The maximum number of items to return. Defaults to 10,
+            limit (int, optional): The maximum number of items to return. Defaults to 10,
                 with a maximum allowable value of 100.
-            :param date_type (str, optional): The type of the filtered date, such as
+            date_type (str, optional): The type of the filtered date, such as
                 "process_computed_date". Case-sensitive. Defaults to None.
 
         Returns:
@@ -629,15 +629,15 @@ class AsyncInspectorioSight:
         method.
 
         Args:
-            :param date_to (str): End date of the query range in yyyy-mm-dd format.
-            :param date_from (str): Start date of the query range in yyyy-mm-dd format.
-            :param offset (int, optional): The number of items to skip before starting to
+            date_to (str): End date of the query range in yyyy-mm-dd format.
+            date_from (str): Start date of the query range in yyyy-mm-dd format.
+            offset (int, optional): The number of items to skip before starting to
                 collect the result set. Defaults to 0.
-            :param limit (int, optional): The maximum number of items to return. Defaults to 10,
+            limit (int, optional): The maximum number of items to return. Defaults to 10,
                 with a maximum allowable value of 100.
-            :param date_type (str, optional): The type of the filtered date, such as
+            date_type (str, optional): The type of the filtered date, such as
                 "process_computed_date". Case-sensitive. Defaults to None.
-            :param total_safe_limit (int, optional): An optional parameter to test out
+            total_safe_limit (int, optional): An optional parameter to test out
                 if pagination is working correctly on a sample (e.g. 1000 extractions)
 
         Returns:
@@ -666,10 +666,10 @@ class AsyncInspectorioSight:
         Get Factory Risk Profile for a given factory ID within a specified date range.
 
         Args:
-            :param factory_id (str): Unique identifier for the factory.
-            :param date_to (str): End date of the query range in yyyy-mm-dd format.
-            :param date_from (str): Start date of the query range in yyyy-mm-dd format.
-            :param client_id (Optional[str]): Unique identifier of the Brand or Retailer
+            factory_id (str): Unique identifier for the factory.
+            date_to (str): End date of the query range in yyyy-mm-dd format.
+            date_from (str): Start date of the query range in yyyy-mm-dd format.
+            client_id (Optional[str]): Unique identifier of the Brand or Retailer
                 that the factory produces for.
 
         Returns:
@@ -725,33 +725,33 @@ class AsyncInspectorioSight:
         dates, expected inspection dates, assignment status, and supports pagination.
 
         Args:
-            :param factory_city (Optional[str]): Factory's city of assignments.
+            factory_city (Optional[str]): Factory's city of assignments.
                 Case-sensitive.
-            :param assignment_created_from (Optional[str]): Assignment created from in
+            assignment_created_from (Optional[str]): Assignment created from in
                 date and time.
-            :param offset (int, optional): The number of items to skip before starting
+            offset (int, optional): The number of items to skip before starting
                 to collect the result set. Defaults to 0.
-            :param expected_inspection_date_to (Optional[str]): End date of the range
+            expected_inspection_date_to (Optional[str]): End date of the range
                 of the expected inspection date in assignments.
-            :param expected_inspection_date_from (Optional[str]): Start date of the
+            expected_inspection_date_from (Optional[str]): Start date of the
                 range of the expected inspection date in assignments.
-            :param assignment_created_to (Optional[str]): Assignment created to in
+            assignment_created_to (Optional[str]): Assignment created to in
                 date and time.
-            :param assignment_updated_to (Optional[str]): Assignment updated to in
+            assignment_updated_to (Optional[str]): Assignment updated to in
                 date and time.
-            :param factory_country (Optional[str]): Factory's country code of
+            factory_country (Optional[str]): Factory's country code of
                 assignments. Case-insensitive.
-            :param assignment_updated_from (Optional[str]): Assignment updated from
+            assignment_updated_from (Optional[str]): Assignment updated from
                 in date and time.
-            :param order (str, optional): Order of the list of assignments. Defaults
+            order (str, optional): Order of the list of assignments. Defaults
                 to "assignment_created_date:desc".
-            :param assignment_status (Optional[Literal["NEW", "PRE-ASSIGNED",
+            assignment_status (Optional[Literal["NEW", "PRE-ASSIGNED",
                 "ASSIGNED", "RELEASED", "IN-PROGRESS", "COMPLETED", "ABORTED"]]): Status
                 of assignments.
-            :param executor_organization (Optional[str]): Inspection Executor of
+            executor_organization (Optional[str]): Inspection Executor of
                 assignments. Allows filtering with the Local Organization ID or the
                 text "owner". Case-sensitive.
-            :param limit (int, optional): The maximum number of items to return.
+            limit (int, optional): The maximum number of items to return.
                 Defaults to 10, with a maximum allowable value of 100.
 
         Returns:
@@ -790,35 +790,35 @@ class AsyncInspectorioSight:
         method.
 
         Args:
-            :param factory_city (Optional[str]): Factory's city of assignments.
+            factory_city (Optional[str]): Factory's city of assignments.
                 Case-sensitive.
-            :param assignment_created_from (Optional[str]): Assignment created from in
+            assignment_created_from (Optional[str]): Assignment created from in
                 date and time.
-            :param offset (int, optional): The number of items to skip before starting
+            offset (int, optional): The number of items to skip before starting
                 to collect the result set. Defaults to 0.
-            :param expected_inspection_date_to (Optional[str]): End date of the range
+            expected_inspection_date_to (Optional[str]): End date of the range
                 of the expected inspection date in assignments.
-            :param expected_inspection_date_from (Optional[str]): Start date of the
+            expected_inspection_date_from (Optional[str]): Start date of the
                 range of the expected inspection date in assignments.
-            :param assignment_created_to (Optional[str]): Assignment created to in
+            assignment_created_to (Optional[str]): Assignment created to in
                 date and time.
-            :param assignment_updated_to (Optional[str]): Assignment updated to in
+            assignment_updated_to (Optional[str]): Assignment updated to in
                 date and time.
-            :param factory_country (Optional[str]): Factory's country code of
+            factory_country (Optional[str]): Factory's country code of
                 assignments. Case-insensitive.
-            :param assignment_updated_from (Optional[str]): Assignment updated from
+            assignment_updated_from (Optional[str]): Assignment updated from
                 in date and time.
-            :param order (str, optional): Order of the list of assignments. Defaults
+            order (str, optional): Order of the list of assignments. Defaults
                 to "assignment_created_date:desc".
-            :param assignment_status (Optional[Literal["NEW", "PRE-ASSIGNED",
+            assignment_status (Optional[Literal["NEW", "PRE-ASSIGNED",
                 "ASSIGNED", "RELEASED", "IN-PROGRESS", "COMPLETED", "ABORTED"]]): Status
                 of assignments.
-            :param executor_organization (Optional[str]): Inspection Executor of
+            executor_organization (Optional[str]): Inspection Executor of
                 assignments. Allows filtering with the Local Organization ID or the
                 text "owner". Case-sensitive.
-            :param limit (int, optional): The maximum number of items to return.
+            limit (int, optional): The maximum number of items to return.
                 Defaults to 10, with a maximum allowable value of 100.
-            :param total_safe_limit (int, optional): An optional parameter to test out
+            total_safe_limit (int, optional): An optional parameter to test out
                 if pagination is working correctly on a sample (e.g. 1000 extractions)
 
         Returns:
@@ -839,7 +839,7 @@ class AsyncInspectorioSight:
         Retrieve details for a specific assignment.
 
         Args:
-            :param assignment_id (str): The unique identifier for the assignment.
+            assignment_id (str): The unique identifier for the assignment.
 
         Returns:
             Dict[str, Any]: A dictionary containing the details of the assignment if
@@ -861,9 +861,9 @@ class AsyncInspectorioSight:
         List brands with optional pagination.
 
         Args:
-            :param offset (int, optional): The number of items to skip before starting
+            offset (int, optional): The number of items to skip before starting
                 to collect the result set. Defaults to 0.
-            :param limit (int, optional): The maximum number of items to return.
+            limit (int, optional): The maximum number of items to return.
                 Defaults to 10, with a maximum allowable value of 100.
 
         Returns:
@@ -886,11 +886,11 @@ class AsyncInspectorioSight:
         method.
 
         Args:
-            :param offset (int, optional): The number of items to skip before starting
+            offset (int, optional): The number of items to skip before starting
                 to collect the result set. Defaults to 0.
-            :param limit (int, optional): The maximum number of items to return.
+            limit (int, optional): The maximum number of items to return.
                 Defaults to 10, with a maximum allowable value of 100.
-            :param total_safe_limit (int, optional): An optional parameter to test out
+            total_safe_limit (int, optional): An optional parameter to test out
                 if pagination is working correctly on a sample (e.g. 1000 extractions)
 
         Returns:
@@ -911,7 +911,7 @@ class AsyncInspectorioSight:
         Retrieve details for a specific brand.
 
         Args:
-            :param brand_id (str): The unique identifier for the brand.
+            brand_id (str): The unique identifier for the brand.
 
         Returns:
             Dict[str, Any]: A dictionary containing the details of the brand if the
@@ -933,8 +933,8 @@ class AsyncInspectorioSight:
         Update brand details.
 
         Args:
-            :param brand_id (str): The unique identifier for the brand.
-            :param brand_data (Dict[str, Any]): A dictionary containing the brand data
+            brand_id (str): The unique identifier for the brand.
+            brand_data (Dict[str, Any]): A dictionary containing the brand data
                 to be updated.
 
         Returns:
@@ -955,7 +955,7 @@ class AsyncInspectorioSight:
         Delete a brand by its ID.
 
         Args:
-            :param brand_id (str): The unique identifier for the brand.
+            brand_id (str): The unique identifier for the brand.
 
         Returns:
             None: This method does not return any value. It completes when the brand is
@@ -975,7 +975,7 @@ class AsyncInspectorioSight:
         Retrieve CAPA details for a specific report.
 
         Args:
-            :param report_id (str): The unique identifier for the report.
+            report_id (str): The unique identifier for the report.
 
         Returns:
             Dict[str, Any]: A dictionary containing the details of the CAPA if the
@@ -995,7 +995,7 @@ class AsyncInspectorioSight:
         Creates a file upload session.
 
         Args:
-            :param payload (dict): The payload for creating a file upload session.
+            payload (dict): The payload for creating a file upload session.
 
         Returns:
             Dict[str, Any]: A dictionary containing the response from the API call.
@@ -1016,9 +1016,9 @@ class AsyncInspectorioSight:
         List Lab Test Reports with optional pagination parameters.
 
         Args:
-            :param offset (int, optional): The number of items to skip before starting
+            offset (int, optional): The number of items to skip before starting
                 to collect the result set. Defaults to 0.
-            :param limit (int, optional): The maximum number of items to return.
+            limit (int, optional): The maximum number of items to return.
                 Defaults to 10, with a maximum allowable value of 100.
 
         Returns:
@@ -1042,11 +1042,11 @@ class AsyncInspectorioSight:
         method.
 
         Args:
-            :param offset (int, optional): The number of items to skip before starting
+            offset (int, optional): The number of items to skip before starting
                 to collect the result set. Defaults to 0.
-            :param limit (int, optional): The maximum number of items to return.
+            limit (int, optional): The maximum number of items to return.
                 Defaults to 10, with a maximum allowable value of 100.
-            :param total_safe_limit (int, optional): An optional parameter to test out
+            total_safe_limit (int, optional): An optional parameter to test out
                 if pagination is working correctly on a sample (e.g. 1000 extractions)
 
         Returns:
@@ -1071,7 +1071,7 @@ class AsyncInspectorioSight:
         Create a new Lab Test Report.
 
         Args:
-            :param report_data (Dict[str, Any]): The data for the new lab test report.
+            report_data (Dict[str, Any]): The data for the new lab test report.
 
         Returns:
             Dict[str, Any]: A dictionary containing the newly created lab test report's
@@ -1094,7 +1094,7 @@ class AsyncInspectorioSight:
         reasons such as unauthorized access, report not found, or server errors.
 
         Args:
-            :param lab_test_report_id (str): The unique identifier of the lab test
+            lab_test_report_id (str): The unique identifier of the lab test
                 report to retrieve.
 
         Returns:
@@ -1119,9 +1119,9 @@ class AsyncInspectorioSight:
         Update a specific lab test report by its ID with the provided data.
 
         Args:
-            :param lab_test_report_id (str): The unique identifier of the lab test
+            lab_test_report_id (str): The unique identifier of the lab test
                 report to update.
-            :param data (Dict[str, Any]): A dictionary containing the update data for
+            data (Dict[str, Any]): A dictionary containing the update data for
                 the lab test report.
 
         Returns:
@@ -1149,7 +1149,7 @@ class AsyncInspectorioSight:
         found, or server errors.
 
         Args:
-            :param lab_test_report_id (str): The unique identifier of the lab test
+            lab_test_report_id (str): The unique identifier of the lab test
                 report to delete.
 
         Returns:
@@ -1170,7 +1170,7 @@ class AsyncInspectorioSight:
         Retrieve measurement chart details for a specific style.
 
         Args:
-            :param style_id (str): The unique identifier for the style.
+            style_id (str): The unique identifier for the style.
 
         Returns:
             Dict[str, Any]: A dictionary containing the details of the measurement chart
@@ -1193,8 +1193,8 @@ class AsyncInspectorioSight:
         Create a measurement chart for a specific style.
 
         Args:
-            :param style_id (str): The unique identifier for the style.
-            :param data (Dict[str, Any]): The data for creating the measurement chart
+            style_id (str): The unique identifier for the style.
+            data (Dict[str, Any]): The data for creating the measurement chart
                 according to the MeasurementForm schema.
 
         Returns:
@@ -1220,8 +1220,8 @@ class AsyncInspectorioSight:
         Update measurement chart details for a specific style.
 
         Args:
-            :param style_id (str): The unique identifier for the style.
-            :param data (Dict[str, Any]): The data for updating the measurement chart
+            style_id (str): The unique identifier for the style.
+            data (Dict[str, Any]): The data for updating the measurement chart
                 according to the MeasurementForm schema.
 
         Returns:
@@ -1255,22 +1255,22 @@ class AsyncInspectorioSight:
         List Metadata with optional filters and pagination.
 
         Args:
-            :param namespace (str): The logical type of data set by Inspectorio.
+            namespace (str): The logical type of data set by Inspectorio.
                 Possible values are "analytics", "inspection".
-            :param offset (int, optional): The number of items to skip before starting
+            offset (int, optional): The number of items to skip before starting
                 to collect the result set. Defaults to 0.
-            :param updated_from (str, optional): Start date of the range when metadata
+            updated_from (str, optional): Start date of the range when metadata
                 was updated in ISO 8601 format. Defaults to None.
-            :param created_to (str, optional): End date of the range when metadata was
+            created_to (str, optional): End date of the range when metadata was
                 created in ISO 8601 format. Defaults to None.
-            :param order (str, optional): Order of metadata in ascending or descending
+            order (str, optional): Order of metadata in ascending or descending
                 based on date filters ("created_date", "updated_date"). Defaults to
                 "created_date:desc".
-            :param updated_to (str, optional): End date of the range when metadata was
+            updated_to (str, optional): End date of the range when metadata was
                 updated in ISO 8601 format. Defaults to None.
-            :param created_from (str, optional): Start date of the range when metadata
+            created_from (str, optional): Start date of the range when metadata
                 was created in ISO 8601 format. Defaults to None.
-            :param limit (int, optional): The limitation of the returned results,
+            limit (int, optional): The limitation of the returned results,
                 defaults to 10 with a maximum of 100.
 
         Returns:
@@ -1302,24 +1302,24 @@ class AsyncInspectorioSight:
         has asynchronous requests using the `list_metadata()` method.
 
         Args:
-            :param namespace (str): The logical type of data set by Inspectorio.
+            namespace (str): The logical type of data set by Inspectorio.
                 Possible values are "analytics", "inspection".
-            :param offset (int, optional): The number of items to skip before starting
+            offset (int, optional): The number of items to skip before starting
                 to collect the result set. Defaults to 0.
-            :param updated_from (str, optional): Start date of the range when metadata
+            updated_from (str, optional): Start date of the range when metadata
                 was updated in ISO 8601 format. Defaults to None.
-            :param created_to (str, optional): End date of the range when metadata was
+            created_to (str, optional): End date of the range when metadata was
                 created in ISO 8601 format. Defaults to None.
-            :param order (str, optional): Order of metadata in ascending or descending
+            order (str, optional): Order of metadata in ascending or descending
                 based on date filters ("created_date", "updated_date"). Defaults to
                 "created_date:desc".
-            :param updated_to (str, optional): End date of the range when metadata was
+            updated_to (str, optional): End date of the range when metadata was
                 updated in ISO 8601 format. Defaults to None.
-            :param created_from (str, optional): Start date of the range when metadata
+            created_from (str, optional): Start date of the range when metadata
                 was created in ISO 8601 format. Defaults to None.
-            :param limit (int, optional): The limitation of the returned results,
+            limit (int, optional): The limitation of the returned results,
                 defaults to 10 with a maximum of 100.
-            :param total_safe_limit (int, optional): An optional parameter to test out
+            total_safe_limit (int, optional): An optional parameter to test out
                 if pagination is working correctly on a sample (e.g. 1000 extractions)
 
         Returns:
@@ -1344,9 +1344,9 @@ class AsyncInspectorioSight:
         Create Metadata.
 
         Args:
-            :param namespace (Literal["analytics", "inspection"]): The logical type of
+            namespace (Literal["analytics", "inspection"]): The logical type of
                 data set by Inspectorio. Possible values are "analytics", "inspection".
-            :param data (Dict[str, Any]): The data to create metadata with, conforming
+            data (Dict[str, Any]): The data to create metadata with, conforming
                 to the MetadataCreate schema.
 
         Returns:
@@ -1368,9 +1368,9 @@ class AsyncInspectorioSight:
         Retrieve metadata for a given UID and namespace.
 
         Args:
-            :param namespace (Literal["analytics", "inspection"]): The logical type of
+            namespace (Literal["analytics", "inspection"]): The logical type of
                 data set by Inspectorio.
-            :param uid (str): Unique identifier within Ecosystem + Namespace, considered
+            uid (str): Unique identifier within Ecosystem + Namespace, considered
                 as unique keys.
 
         Returns:
@@ -1396,11 +1396,11 @@ class AsyncInspectorioSight:
         Update metadata for a given UID and namespace.
 
         Args:
-            :param namespace (Literal["analytics", "inspection"]): The logical type of
+            namespace (Literal["analytics", "inspection"]): The logical type of
                 data set by Inspectorio.
-            :param uid (str): Unique identifier within Ecosystem + Namespace, considered
+            uid (str): Unique identifier within Ecosystem + Namespace, considered
                 as unique keys.
-            :param metadata (Dict[str, Any]): The metadata to update.
+            metadata (Dict[str, Any]): The metadata to update.
 
         Returns:
             Dict[str, Any]: A dictionary containing the updated metadata if the request
@@ -1424,9 +1424,9 @@ class AsyncInspectorioSight:
         Delete metadata for a given UID and namespace.
 
         Args:
-            :param namespace (Literal["analytics", "inspection"]): The logical type of
+            namespace (Literal["analytics", "inspection"]): The logical type of
                 data set by Inspectorio.
-            :param uid (str): Unique identifier within Ecosystem + Namespace, considered
+            uid (str): Unique identifier within Ecosystem + Namespace, considered
                 as unique keys.
 
         Returns:
@@ -1449,11 +1449,11 @@ class AsyncInspectorioSight:
         List organizations with optional filtering by name.
 
         Args:
-            :param offset (int, optional): The number of items to skip before starting
+            offset (int, optional): The number of items to skip before starting
                 to collect the result set. Defaults to 0.
-            :param limit (int, optional): The limit on the number of items to return in
+            limit (int, optional): The limit on the number of items to return in
                 the response. Defaults to 10, with a maximum of 100.
-            :param name (str, optional): Filter organizations by name.
+            name (str, optional): Filter organizations by name.
 
         Returns:
             Dict[str, Any]: A dictionary containing the list of organizations.
@@ -1476,12 +1476,12 @@ class AsyncInspectorioSight:
         asynchronous requests using the `list_organizations()` method.
 
         Args:
-            :param offset (int, optional): The number of items to skip before starting
+            offset (int, optional): The number of items to skip before starting
                 to collect the result set. Defaults to 0.
-            :param limit (int, optional): The limit on the number of items to return in
+            limit (int, optional): The limit on the number of items to return in
                 the response. Defaults to 10, with a maximum of 100.
-            :param name (str, optional): Filter organizations by name.
-            :param total_safe_limit (int, optional): An optional parameter to test out
+            name (str, optional): Filter organizations by name.
+            total_safe_limit (int, optional): An optional parameter to test out
                 if pagination is working correctly on a sample (e.g. 1000 extractions)
 
         Returns:
@@ -1497,7 +1497,7 @@ class AsyncInspectorioSight:
         Create a new organization.
 
         Args:
-            :param organization_data (Dict[str, Any]): A dictionary containing data of
+            organization_data (Dict[str, Any]): A dictionary containing data of
                 the organization to create.
 
         Returns:
@@ -1520,7 +1520,7 @@ class AsyncInspectorioSight:
         Retrieve details of a specific organization.
 
         Args:
-            :param organization_id (str): The unique identifier of the organization.
+            organization_id (str): The unique identifier of the organization.
 
         Returns:
             Dict[str, Any]: A dictionary containing details of the specified organization.
@@ -1542,9 +1542,9 @@ class AsyncInspectorioSight:
         Update details of a specific organization.
 
         Args:
-            :param organization_id (str): The unique identifier of the organization to
+            organization_id (str): The unique identifier of the organization to
                 update.
-            :param organization_data (Dict[str, Any]): A dictionary containing the update
+            organization_data (Dict[str, Any]): A dictionary containing the update
                 data for the organization.
 
         Returns:
@@ -1568,7 +1568,7 @@ class AsyncInspectorioSight:
         Delete a specific organization.
 
         Args:
-            :param organization_id (str): The unique identifier of the organization to
+            organization_id (str): The unique identifier of the organization to
                 delete.
 
         Returns:
@@ -1590,7 +1590,7 @@ class AsyncInspectorioSight:
         Retrieve details for a specific purchase order.
 
         Args:
-            :param po_number (str): The unique identifier for the purchase order.
+            po_number (str): The unique identifier for the purchase order.
 
         Returns:
             Dict[str, Any]: A dictionary containing the details of the purchase order
@@ -1612,8 +1612,8 @@ class AsyncInspectorioSight:
         Update details for a specific purchase order.
 
         Args:
-            :param po_number (str): The unique identifier for the purchase order.
-            :param payload (Dict[str, Any]): The data to update the purchase order with.
+            po_number (str): The unique identifier for the purchase order.
+            payload (Dict[str, Any]): The data to update the purchase order with.
 
         Returns:
             Dict[str, Any]: A dictionary containing the updated details of the purchase
@@ -1635,7 +1635,7 @@ class AsyncInspectorioSight:
         Delete a specific purchase order.
 
         Args:
-            :param po_number (str): The unique identifier for the purchase order to be
+            po_number (str): The unique identifier for the purchase order to be
                 deleted.
 
         Returns:
@@ -1658,8 +1658,8 @@ class AsyncInspectorioSight:
         Update or delete a Purchase Order based on the provided action.
 
         Args:
-            :param po_number (str): The Purchase Order number to be updated or deleted.
-            :param action (Literal["update", "delete"]): Specifies the action to be
+            po_number (str): The Purchase Order number to be updated or deleted.
+            action (Literal["update", "delete"]): Specifies the action to be
                 performed on the Purchase Order.
                 - "update": Updates the Purchase Order. The method behaves like a PUT
                     request.
@@ -1703,22 +1703,22 @@ class AsyncInspectorioSight:
         timestamps. It also supports pagination of the results.
 
         Args:
-            :param po_number (str, optional): Filter Time and Actions by purchase order
+            po_number (str, optional): Filter Time and Actions by purchase order
                 number.
-            :param offset (int, optional): The number of items to skip before starting
+            offset (int, optional): The number of items to skip before starting
                 to collect the result set.
-            :param status (str, optional): Filter Time and Actions by their status.
+            status (str, optional): Filter Time and Actions by their status.
                 Possible values are "UPCOMING", "NEW", "IN-PROGRESS", "CANCELED",
                 "ABORTED", "COMPLETED".
-            :param updated_from (str, optional): Filter Time and Actions updated from
+            updated_from (str, optional): Filter Time and Actions updated from
                 this date and time.
-            :param created_to (str, optional): Filter Time and Actions created up to
+            created_to (str, optional): Filter Time and Actions created up to
                 this date and time.
-            :param updated_to (str, optional): Filter Time and Actions updated to this
+            updated_to (str, optional): Filter Time and Actions updated to this
                 date and time.
-            :param created_from (str, optional): Filter Time and Actions created from
+            created_from (str, optional): Filter Time and Actions created from
                 this date and time.
-            :param limit (int, optional): The maximum number of items to return.
+            limit (int, optional): The maximum number of items to return.
                 Defaults to 10.
 
         Returns:
@@ -1751,24 +1751,24 @@ class AsyncInspectorioSight:
             it has asynchronous requests using the `list_time_and_actions()` method.
 
         Args:
-            :param po_number (str, optional): Filter Time and Actions by purchase order
+            po_number (str, optional): Filter Time and Actions by purchase order
                 number.
-            :param offset (int, optional): The number of items to skip before starting
+            offset (int, optional): The number of items to skip before starting
                 to collect the result set.
-            :param status (str, optional): Filter Time and Actions by their status.
+            status (str, optional): Filter Time and Actions by their status.
                 Possible values are "UPCOMING", "NEW", "IN-PROGRESS", "CANCELED",
                 "ABORTED", "COMPLETED".
-            :param updated_from (str, optional): Filter Time and Actions updated from
+            updated_from (str, optional): Filter Time and Actions updated from
                 this date and time.
-            :param created_to (str, optional): Filter Time and Actions created up to
+            created_to (str, optional): Filter Time and Actions created up to
                 this date and time.
-            :param updated_to (str, optional): Filter Time and Actions updated to this
+            updated_to (str, optional): Filter Time and Actions updated to this
                 date and time.
-            :param created_from (str, optional): Filter Time and Actions created from
+            created_from (str, optional): Filter Time and Actions created from
                 this date and time.
-            :param limit (int, optional): The maximum number of items to return.
+            limit (int, optional): The maximum number of items to return.
                 Defaults to 10.
-            :param total_safe_limit (int, optional): An optional parameter to test out
+            total_safe_limit (int, optional): An optional parameter to test out
                 if pagination is working correctly on a sample (e.g. 1000 extractions)
 
         Returns:
@@ -1791,7 +1791,7 @@ class AsyncInspectorioSight:
         Retrieve details for a specific Time and Action.
 
         Args:
-            :param id (str): The unique identifier for the Time and Action.
+            id (str): The unique identifier for the Time and Action.
 
         Returns:
             Dict[str, Any]: A dictionary containing the details of the Time and Action
@@ -1813,8 +1813,8 @@ class AsyncInspectorioSight:
         Update Time and Actions milestones.
 
         Args:
-            :param ta_id (str): The unique identifier for the Time and Action.
-            :param data (dict): The data to update the Time and Action milestones.
+            ta_id (str): The unique identifier for the Time and Action.
+            data (dict): The data to update the Time and Action milestones.
 
         Returns:
             Dict[str, Any]: A dictionary containing the response from the API after
@@ -1838,8 +1838,8 @@ class AsyncInspectorioSight:
         Get Time and Actions production status.
 
         Args:
-            :param ta_id (str): The unique identifier for the Time and Action.
-            :param production_status_level (str, optional): The level of production
+            ta_id (str): The unique identifier for the Time and Action.
+            production_status_level (str, optional): The level of production
                 status, either "poLevel" or "itemLevel".
 
         Returns:
@@ -1869,8 +1869,8 @@ class AsyncInspectorioSight:
         Update Time and Actions production status.
 
         Args:
-            :param ta_id (str): The unique identifier for the Time and Action.
-            :param data (dict): The data to update the Time and Action production status.
+            ta_id (str): The unique identifier for the Time and Action.
+            data (dict): The data to update the Time and Action production status.
 
         Returns:
             Dict[str, Any]: A dictionary containing the response from the API after
