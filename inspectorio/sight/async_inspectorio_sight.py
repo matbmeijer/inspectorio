@@ -21,9 +21,10 @@ class AsyncInspectorioSight:
         """
         Initializes the AsyncInspectorioSight client.
 
-        :param base_url: The base URL for the Inspectorio Sight API. Can be one of three environments (production, pre-production, staging).
-        :param concurrent_fetches_limit: The maximum number of concurrent fetches allowed. Cannot exceed 20 as per Inspectorio API guidelines.
-        :param kwargs: Additional keyword arguments to be passed to the httpx.AsyncClient.
+        Args:
+            :param base_url: The base URL for the Inspectorio Sight API. Can be one of three environments (production, pre-production, staging).
+            :param concurrent_fetches_limit: The maximum number of concurrent fetches allowed. Cannot exceed 20 as per Inspectorio API guidelines.
+            :param kwargs: Additional keyword arguments to be passed to the httpx.AsyncClient.
 
         The Inspectorio API supports up to 20 concurrent asynchronous requests to optimize data integration speed.
         """
@@ -94,8 +95,14 @@ class AsyncInspectorioSight:
     ) -> List[Dict[str, Any]]:
         """
         A general method to fetch all items with pagination.
-        :param fetch_function: The function to fetch data with pagination.
-        :param kwargs: Additional keyword arguments to pass to the fetch function.
+
+        Args:
+            :param fetch_function: The function to fetch data with pagination.
+            :param kwargs: Additional keyword arguments to pass to the fetch function.
+
+        Returns:
+            A list containing the returned dictionary of the used function
+
         """
         get_total_kwargs = await self._clean_kwargs(
             kwargs, ["total_safe_limit", "limit"]
@@ -139,34 +146,34 @@ class AsyncInspectorioSight:
         filtering bookings by their status, association to an organization, creation,
         and update timestamps. It also supports ordering and pagination of the results.
 
-        Parameters:
-        - offset (int, optional): The number of items to skip before starting to
-            collect the result set. Defaults to 0.
-        - status (str, optional): Filter bookings by their status. Possible values
-            are "NEW", "WAIVED", "CONFIRMED", "REJECTED", "MERGED", "CANCELED".
-            Defaults to None.
-        - to_organization_id (str, optional): Filter bookings that are booked to the
-            specified organization ID. Defaults to None.
-        - updated_from (str, optional): Filter bookings updated from this date and
-            time in ISO 8601 format (YYYY-MM-DDTHH:MM:SSZ). Defaults to None.
-        - created_to (str, optional): Filter bookings created up to this date and time
-            in ISO 8601 format (YYYY-MM-DDTHH:MM:SSZ). Defaults to None.
-        - order (str, optional): Specifies the order of the results. Defaults to
-            "created_date:desc". Possible ordering is based on creation date,
-            either ascending or descending.
-        - updated_to (str, optional): Filter bookings updated up to this date and time
-            in ISO 8601 format (YYYY-MM-DDTHH:MM:SSZ). Defaults to None.
-        - created_from (str, optional): Filter bookings created from this date and time
-            in ISO 8601 format (YYYY-MM-DDTHH:MM:SSZ). Defaults to None.
-        - limit (int, optional): The maximum number of items to return. Defaults to 10,
-            with a maximum allowable value of 100.
+        Args:
+            :param offset (int, optional): The number of items to skip before starting to
+                collect the result set. Defaults to 0.
+            :param status (str, optional): Filter bookings by their status. Possible values
+                are "NEW", "WAIVED", "CONFIRMED", "REJECTED", "MERGED", "CANCELED".
+                Defaults to None.
+            :param to_organization_id (str, optional): Filter bookings that are booked to the
+                specified organization ID. Defaults to None.
+            :param updated_from (str, optional): Filter bookings updated from this date and
+                time in ISO 8601 format (YYYY-MM-DDTHH:MM:SSZ). Defaults to None.
+            :param created_to (str, optional): Filter bookings created up to this date and time
+                in ISO 8601 format (YYYY-MM-DDTHH:MM:SSZ). Defaults to None.
+            :param order (str, optional): Specifies the order of the results. Defaults to
+                "created_date:desc". Possible ordering is based on creation date,
+                either ascending or descending.
+            :param updated_to (str, optional): Filter bookings updated up to this date and time
+                in ISO 8601 format (YYYY-MM-DDTHH:MM:SSZ). Defaults to None.
+            :param created_from (str, optional): Filter bookings created from this date and time
+                in ISO 8601 format (YYYY-MM-DDTHH:MM:SSZ). Defaults to None.
+            :param limit (int, optional): The maximum number of items to return. Defaults to 10,
+                with a maximum allowable value of 100.
 
         Returns:
-        Dict[str, Any]: A dictionary containing the list of bookings matching the
-            criteria.
+            Dict[str, Any]: A dictionary containing the list of bookings matching the
+                criteria.
 
         Raises:
-        - Exception: If an error occurs during the API call. This includes HTTP errors or any other issues encountered during the request.
+            Exception: If an error occurs during the API call. This includes HTTP errors or any other issues encountered during the request.
         """
         params = {
             "status": status,
@@ -208,19 +215,19 @@ class AsyncInspectorioSight:
         """
         List Purchase Orders with optional filters and pagination.
 
-        Parameters:
-        - po_number (str, optional): Purchase order number to be stored in Inspectorio. Defaults to None.
-        - offset (int, optional): The number of items to skip before starting to collect the result set. Defaults to 0.
-        - delivery_date_to (str, optional): Purchase order delivery date to in ISO 8601 format (YYYY-MM-DDTHH:MM:SSZ). Defaults to None.
-        - delivery_date_from (str, optional): Purchase order delivery date from in ISO 8601 format (YYYY-MM-DDTHH:MM:SSZ). Defaults to None.
-        - opo_number (str, optional): Original purchase order number stored in the client's system. Defaults to None.
-        - limit (int, optional): The maximum number of items to return. Defaults to 10, with a maximum allowable value of 100.
+        Args:
+            :param po_number (str, optional): Purchase order number to be stored in Inspectorio. Defaults to None.
+            :param offset (int, optional): The number of items to skip before starting to collect the result set. Defaults to 0.
+            :param delivery_date_to (str, optional): Purchase order delivery date to in ISO 8601 format (YYYY-MM-DDTHH:MM:SSZ). Defaults to None.
+            :param delivery_date_from (str, optional): Purchase order delivery date from in ISO 8601 format (YYYY-MM-DDTHH:MM:SSZ). Defaults to None.
+            :param opo_number (str, optional): Original purchase order number stored in the client's system. Defaults to None.
+            :param limit (int, optional): The maximum number of items to return. Defaults to 10, with a maximum allowable value of 100.
 
         Returns:
-        Dict[str, Any]: A dictionary containing the list of purchase orders matching the criteria.
+            Dict[str, Any]: A dictionary containing the list of purchase orders matching the criteria.
 
         Raises:
-        - Exception: If an error occurs during the API call. This includes HTTP errors or any other issues encountered during the request.
+            Exception: If an error occurs during the API call. This includes HTTP errors or any other issues encountered during the request.
         """
         params = {
             "po_number": po_number,
@@ -245,15 +252,15 @@ class AsyncInspectorioSight:
         """
         Create a Purchase Order with the provided data.
 
-        Parameters:
-        - purchase_order_data (Dict[str, Any]): The data for the new purchase order. Must conform to the API's expected
-            schema for purchase order creation.
+        Args:
+            :param purchase_order_data (Dict[str, Any]): The data for the new purchase order. Must conform to the API's expected
+                schema for purchase order creation.
 
         Returns:
-        Dict[str, Any]: A dictionary containing the response from the API, typically including details of the created purchase order.
+            Dict[str, Any]: A dictionary containing the response from the API, typically including details of the created purchase order.
 
         Raises:
-        - Exception: If an error occurs during the API call. This includes HTTP errors or any other issues encountered during the request.
+            Exception: If an error occurs during the API call. This includes HTTP errors or any other issues encountered during the request.
         """
         return await self._make_request(
             "POST", "/purchase-orders", json=purchase_order_data
@@ -292,13 +299,27 @@ class AsyncInspectorioSight:
         system update dates, creation and update timestamps, report status, and CAPA status.
         It also supports ordering and pagination of the results.
 
-        Parameters are defined as per the Swagger documentation provided.
+        Args:
+            :param inspection_date_from:
+            :param inspection_date_to:
+            :param style_id:
+            :param offset:
+            :param system_updated_from:
+            :param status:
+            :param system_updated_to:
+            :param updated_from:
+            :param created_to:
+            :param order:
+            :param updated_to:
+            :param created_from:
+            :param limit:
+            :param capa_status:
 
         Returns:
-        Dict[str, Any]: A dictionary containing the list of reports matching the criteria.
+            Dict[str, Any]: A dictionary containing the list of reports matching the criteria.
 
         Raises:
-        - Exception: If an error occurs during the API call. This includes HTTP errors or any other issues encountered during the request.
+            Exception: If an error occurs during the API call. This includes HTTP errors or any other issues encountered during the request.
         """
         params = {
             "inspection_date_from": inspection_date_from,
@@ -327,14 +348,14 @@ class AsyncInspectorioSight:
         """
         Retrieve details for a specific report.
 
-        Parameters:
-        - report_id (str): The unique identifier for the report.
+        Args:
+            :param report_id (str): The unique identifier for the report.
 
         Returns:
-        Dict[str, Any]: A dictionary containing the details of the report if the request is successful.
+            Dict[str, Any]: A dictionary containing the details of the report if the request is successful.
 
         Raises:
-        - Exception: If an error occurs during the API call or if the request is unsuccessful.
+            Exception: If an error occurs during the API call. This includes HTTP errors or any other issues encountered during the request.
         """
         return await self._make_request("GET", f"/reports/{report_id}")
 
@@ -350,19 +371,22 @@ class AsyncInspectorioSight:
         List Factory Risk Profiles with optional filters. This method allows
         filtering factory risk profiles by date range and supports pagination.
 
-        Parameters:
-        - date_to (str): End date of the query range in yyyy-mm-dd format.
-        - date_from (str): Start date of the query range in yyyy-mm-dd format.
-        - offset (int, optional): The number of items to skip before starting to
-            collect the result set. Defaults to 0.
-        - limit (int, optional): The maximum number of items to return. Defaults to 10,
-            with a maximum allowable value of 100.
-        - date_type (str, optional): The type of the filtered date, such as
-            "process_computed_date". Case-sensitive. Defaults to None.
+        Args:
+            :param date_to (str): End date of the query range in yyyy-mm-dd format.
+            :param date_from (str): Start date of the query range in yyyy-mm-dd format.
+            :param offset (int, optional): The number of items to skip before starting to
+                collect the result set. Defaults to 0.
+            :param limit (int, optional): The maximum number of items to return. Defaults to 10,
+                with a maximum allowable value of 100.
+            :param date_type (str, optional): The type of the filtered date, such as
+                "process_computed_date". Case-sensitive. Defaults to None.
 
         Returns:
-        Dict[str, Any]: A dictionary containing the list of factory risk profiles matching the
-            criteria.
+            Dict[str, Any]: A dictionary containing the list of factory risk profiles matching the
+                criteria.
+
+        Raises:
+            Exception: If an error occurs during the API call. This includes HTTP errors or any other issues encountered during the request.
         """
         params = {
             "offset": offset,
@@ -392,17 +416,17 @@ class AsyncInspectorioSight:
         """
         Get Factory Risk Profile for a given factory ID within a specified date range.
 
-        Parameters:
-        - factory_id (str): Unique identifier for the factory.
-        - date_to (str): End date of the query range in yyyy-mm-dd format.
-        - date_from (str): Start date of the query range in yyyy-mm-dd format.
-        - client_id (Optional[str]): Unique identifier of the Brand or Retailer that the factory produces for.
+        Args:
+            :param factory_id (str): Unique identifier for the factory.
+            :param date_to (str): End date of the query range in yyyy-mm-dd format.
+            :param date_from (str): Start date of the query range in yyyy-mm-dd format.
+            :param client_id (Optional[str]): Unique identifier of the Brand or Retailer that the factory produces for.
 
         Returns:
-        Dict[str, Any]: A dictionary containing the factory risk profile if the request is successful.
+            Dict[str, Any]: A dictionary containing the factory risk profile if the request is successful.
 
         Raises:
-        - Exception: If an error occurs during the API call or if the request is unsuccessful.
+            Exception: If an error occurs during the API call. This includes HTTP errors or any other issues encountered during the request.
         """
         params = {
             "date_to": date_to,
@@ -466,14 +490,14 @@ class AsyncInspectorioSight:
         """
         Retrieve details for a specific assignment.
 
-        Parameters:
-        - assignment_id (str): The unique identifier for the assignment.
+        Args:
+            :param assignment_id (str): The unique identifier for the assignment.
 
         Returns:
-        Dict[str, Any]: A dictionary containing the details of the assignment if the request is successful.
+            Dict[str, Any]: A dictionary containing the details of the assignment if the request is successful.
 
         Raises:
-        - Exception: If an error occurs during the API call or if the request is unsuccessful.
+            Exception: If an error occurs during the API call. This includes HTTP errors or any other issues encountered during the request.
         """
         return await self._make_request("GET", f"/assignments/{assignment_id}")
 
@@ -483,15 +507,15 @@ class AsyncInspectorioSight:
         """
         List brands with optional pagination.
 
-        Parameters:
-        - offset (int, optional): The number of items to skip before starting to collect the result set. Defaults to 0.
-        - limit (int, optional): The maximum number of items to return. Defaults to 10, with a maximum allowable value of 100.
+        Args:
+            :param offset (int, optional): The number of items to skip before starting to collect the result set. Defaults to 0.
+            :param limit (int, optional): The maximum number of items to return. Defaults to 10, with a maximum allowable value of 100.
 
         Returns:
-        Dict[str, Any]: A dictionary containing the list of brands matching the criteria.
+            Dict[str, Any]: A dictionary containing the list of brands matching the criteria.
 
         Raises:
-        - Exception: If an error occurs during the API call. This includes HTTP errors or any other issues encountered during the request.
+            Exception: If an error occurs during the API call. This includes HTTP errors or any other issues encountered during the request.
         """
         params = {"offset": offset, "limit": limit}
         return await self._make_request("GET", "/brands", params=params)
@@ -504,11 +528,14 @@ class AsyncInspectorioSight:
         """
         Retrieve details for a specific brand.
 
-        Parameters:
-        - brand_id (str): The unique identifier for the brand.
+        Args:
+            :param brand_id (str): The unique identifier for the brand.
 
         Returns:
-        Dict[str, Any]: A dictionary containing the details of the brand if the request is successful.
+            Dict[str, Any]: A dictionary containing the details of the brand if the request is successful.
+
+        Raises:
+            Exception: If an error occurs during the API call. This includes HTTP errors or any other issues encountered during the request.
         """
         return await self._make_request("GET", f"/brands/{brand_id}")
 
@@ -518,12 +545,15 @@ class AsyncInspectorioSight:
         """
         Update brand details.
 
-        Parameters:
-        - brand_id (str): The unique identifier for the brand.
-        - brand_data (Dict[str, Any]): A dictionary containing the brand data to be updated.
+        Args:
+            :param brand_id (str): The unique identifier for the brand.
+            :param brand_data (Dict[str, Any]): A dictionary containing the brand data to be updated.
 
         Returns:
-        Dict[str, Any]: A dictionary containing the updated details of the brand if the request is successful.
+            Dict[str, Any]: A dictionary containing the updated details of the brand if the request is successful.
+
+        Raises:
+            Exception: If an error occurs during the API call. This includes HTTP errors or any other issues encountered during the request.
         """
         return await self._make_request("PUT", f"/brands/{brand_id}", json=brand_data)
 
@@ -531,8 +561,14 @@ class AsyncInspectorioSight:
         """
         Delete a brand by its ID.
 
-        Parameters:
-        - brand_id (str): The unique identifier for the brand.
+        Args:
+            :param brand_id (str): The unique identifier for the brand.
+
+        Returns:
+            None: This method does not return any value. It completes when the brand is successfully deleted.
+
+        Raises:
+            Exception: If an error occurs during the API call. This includes HTTP errors or any other issues encountered during the request.
         """
         await self._make_request("DELETE", f"/brands/{brand_id}")
 
@@ -540,14 +576,14 @@ class AsyncInspectorioSight:
         """
         Retrieve CAPA details for a specific report.
 
-        Parameters:
-        - report_id (str): The unique identifier for the report.
+        Args:
+            :param report_id (str): The unique identifier for the report.
 
         Returns:
-        Dict[str, Any]: A dictionary containing the details of the CAPA if the request is successful.
+            Dict[str, Any]: A dictionary containing the details of the CAPA if the request is successful.
 
         Raises:
-        - Exception: If an error occurs during the API call or if the request is unsuccessful.
+            Exception: If an error occurs during the API call. This includes HTTP errors or any other issues encountered during the request.
         """
         return await self._make_request("GET", f"/capas/{report_id}")
 
@@ -555,14 +591,14 @@ class AsyncInspectorioSight:
         """
         Creates a file upload session.
 
-        Parameters:
-        - payload (dict): The payload for creating a file upload session.
+        Args:
+            :param payload (dict): The payload for creating a file upload session.
 
         Returns:
-        Dict[str, Any]: A dictionary containing the response from the API call.
+            Dict[str, Any]: A dictionary containing the response from the API call.
 
         Raises:
-        - Exception: If an error occurs during the API call.
+            Exception: If an error occurs during the API call. This includes HTTP errors or any other issues encountered during the request.
         """
         return await self._make_request("POST", "/file-upload-session", json=payload)
 
@@ -572,12 +608,15 @@ class AsyncInspectorioSight:
         """
         List Lab Test Reports with optional pagination parameters.
 
-        Parameters:
-        - offset (int, optional): The number of items to skip before starting to collect the result set. Defaults to 0.
-        - limit (int, optional): The maximum number of items to return. Defaults to 10, with a maximum allowable value of 100.
+        Args:
+            :param offset (int, optional): The number of items to skip before starting to collect the result set. Defaults to 0.
+            :param limit (int, optional): The maximum number of items to return. Defaults to 10, with a maximum allowable value of 100.
 
         Returns:
-        Dict[str, Any]: A dictionary containing the list of lab test reports matching the criteria.
+            Dict[str, Any]: A dictionary containing the list of lab test reports matching the criteria.
+
+        Raises:
+            Exception: If an error occurs during the API call. This includes HTTP errors or any other issues encountered during the request.
         """
         params = {"offset": offset, "limit": limit}
         return await self._make_request("GET", "/lab-test-reports", params=params)
@@ -594,27 +633,32 @@ class AsyncInspectorioSight:
         """
         Create a new Lab Test Report.
 
-        Parameters:
-        - report_data (Dict[str, Any]): The data for the new lab test report.
+        Args:
+            :param report_data (Dict[str, Any]): The data for the new lab test report.
 
         Returns:
-        Dict[str, Any]: A dictionary containing the newly created lab test report's details.
+            Dict[str, Any]: A dictionary containing the newly created lab test report's details.
+
+        Raises:
+            Exception: If an error occurs during the API call. This includes HTTP errors or any other issues encountered during the request.
         """
         return await self._make_request("POST", "/lab-test-reports", json=report_data)
 
     async def get_lab_test_report(self, lab_test_report_id: str) -> Dict[str, Any]:
         """
-        Retrieve details for a specific lab test report by its ID.
+        Retrieve details for a specific lab test report by its ID. This method sends a
+        GET request to fetch details of a specific lab test report. It returns the
+        report details as a dictionary. Raises exceptions if the fetch fails due to
+        reasons such as unauthorized access, report not found, or server errors.
 
-        Parameters:
-        - lab_test_report_id (str): The unique identifier of the lab test report to retrieve.
+        Args:
+            :param lab_test_report_id (str): The unique identifier of the lab test report to retrieve.
 
         Returns:
-        Dict[str, Any]: A dictionary containing the details of the lab test report if the request is successful.
+            Dict[str, Any]: A dictionary containing the details of the lab test report if the request is successful.
 
-        This method sends a GET request to fetch details of a specific lab test report.
-        It returns the report details as a dictionary. Raises exceptions if the fetch fails
-        due to reasons such as unauthorized access, report not found, or server errors.
+        Raises:
+            Exception: If an error occurs during the API call. This includes HTTP errors or any other issues encountered during the request.
         """
         return await self._make_request(
             "GET", f"/lab-test-reports/{lab_test_report_id}"
@@ -626,16 +670,15 @@ class AsyncInspectorioSight:
         """
         Update a specific lab test report by its ID with the provided data.
 
-        Parameters:
-        - lab_test_report_id (str): The unique identifier of the lab test report to update.
-        - data (Dict[str, Any]): A dictionary containing the update data for the lab test report.
+        Args:
+            :param lab_test_report_id (str): The unique identifier of the lab test report to update.
+            :param data (Dict[str, Any]): A dictionary containing the update data for the lab test report.
 
         Returns:
-        Dict[str, Any]: A dictionary containing the updated lab test report details if the request is successful.
+            Dict[str, Any]: A dictionary containing the updated lab test report details if the request is successful.
 
         Raises:
-        - Exception: If an error occurs during the API call, such as HTTP errors, validation errors, or if the lab test
-            report is not found.
+            Exception: If an error occurs during the API call. This includes HTTP errors or any other issues encountered during the request.
         """
 
         return await self._make_request(
@@ -644,15 +687,20 @@ class AsyncInspectorioSight:
 
     async def delete_lab_test_report(self, lab_test_report_id: str) -> None:
         """
-        Delete a specific lab test report by its ID.
+        Delete a specific lab test report by its ID. This method sends a DELETE request
+        to the server to remove the specified lab test report. If the request is
+        successful, the lab test report is deleted from the server. Raises exceptions
+        if the deletion fails due to reasons such as unauthorized access, report not
+        found, or server errors.
 
-        Parameters:
-        - lab_test_report_id (str): The unique identifier of the lab test report to delete.
+        Args:
+            :param lab_test_report_id (str): The unique identifier of the lab test report to delete.
 
-        This method sends a DELETE request to the server to remove the specified lab test report.
-        If the request is successful, the lab test report is deleted from the server.
-        Raises exceptions if the deletion fails due to reasons such as unauthorized access,
-        report not found, or server errors.
+        Returns:
+            None: This method does not return any value. It completes when the lab test report is successfully deleted.
+
+        Raises:
+            Exception: If an error occurs during the API call. This includes HTTP errors or any other issues encountered during the request.
         """
         await self._make_request("DELETE", f"/lab-test-reports/{lab_test_report_id}")
 
@@ -660,14 +708,14 @@ class AsyncInspectorioSight:
         """
         Retrieve measurement chart details for a specific style.
 
-        Parameters:
-        - style_id (str): The unique identifier for the style.
+        Args:
+            :param style_id (str): The unique identifier for the style.
 
         Returns:
-        Dict[str, Any]: A dictionary containing the details of the measurement chart if the request is successful.
+            Dict[str, Any]: A dictionary containing the details of the measurement chart if the request is successful.
 
         Raises:
-        - Exception: If an error occurs during the API call or if the request is unsuccessful.
+            Exception: If an error occurs during the API call. This includes HTTP errors or any other issues encountered during the request.
         """
 
         return await self._make_request("GET", f"/measurement-charts/{style_id}")
@@ -678,15 +726,15 @@ class AsyncInspectorioSight:
         """
         Create a measurement chart for a specific style.
 
-        Parameters:
-        - style_id (str): The unique identifier for the style.
-        - data (Dict[str, Any]): The data for creating the measurement chart according to the MeasurementForm schema.
+        Args:
+            :param style_id (str): The unique identifier for the style.
+            :param data (Dict[str, Any]): The data for creating the measurement chart according to the MeasurementForm schema.
 
         Returns:
-        Dict[str, Any]: A dictionary containing the details of the newly created measurement chart.
+            Dict[str, Any]: A dictionary containing the details of the newly created measurement chart.
 
         Raises:
-        - Exception: If an error occurs during the API call or if the request is unsuccessful.
+            Exception: If an error occurs during the API call. This includes HTTP errors or any other issues encountered during the request.
         """
 
         return await self._make_request(
@@ -699,15 +747,15 @@ class AsyncInspectorioSight:
         """
         Update measurement chart details for a specific style.
 
-        Parameters:
-        - style_id (str): The unique identifier for the style.
-        - data (Dict[str, Any]): The data for updating the measurement chart according to the MeasurementForm schema.
+        Args:
+            :param style_id (str): The unique identifier for the style.
+            :param data (Dict[str, Any]): The data for updating the measurement chart according to the MeasurementForm schema.
 
         Returns:
-        Dict[str, Any]: A dictionary containing the details of the updated measurement chart.
+            Dict[str, Any]: A dictionary containing the details of the updated measurement chart.
 
         Raises:
-        - Exception: If an error occurs during the API call or if the request is unsuccessful.
+            Exception: If an error occurs during the API call. This includes HTTP errors or any other issues encountered during the request.
         """
 
         return await self._make_request(
@@ -728,18 +776,21 @@ class AsyncInspectorioSight:
         """
         List Metadata with optional filters and pagination.
 
-        Parameters:
-        - namespace (str): The logical type of data set by Inspectorio. Possible values are "analytics", "inspection".
-        - offset (int, optional): The number of items to skip before starting to collect the result set. Defaults to 0.
-        - updated_from (str, optional): Start date of the range when metadata was updated in ISO 8601 format. Defaults to None.
-        - created_to (str, optional): End date of the range when metadata was created in ISO 8601 format. Defaults to None.
-        - order (str, optional): Order of metadata in ascending or descending based on date filters ("created_date", "updated_date"). Defaults to "created_date:desc".
-        - updated_to (str, optional): End date of the range when metadata was updated in ISO 8601 format. Defaults to None.
-        - created_from (str, optional): Start date of the range when metadata was created in ISO 8601 format. Defaults to None.
-        - limit (int, optional): The limitation of the returned results, defaults to 10 with a maximum of 100.
+        Args:
+            :param namespace (str): The logical type of data set by Inspectorio. Possible values are "analytics", "inspection".
+            :param offset (int, optional): The number of items to skip before starting to collect the result set. Defaults to 0.
+            :param updated_from (str, optional): Start date of the range when metadata was updated in ISO 8601 format. Defaults to None.
+            :param created_to (str, optional): End date of the range when metadata was created in ISO 8601 format. Defaults to None.
+            :param order (str, optional): Order of metadata in ascending or descending based on date filters ("created_date", "updated_date"). Defaults to "created_date:desc".
+            :param updated_to (str, optional): End date of the range when metadata was updated in ISO 8601 format. Defaults to None.
+            :param created_from (str, optional): Start date of the range when metadata was created in ISO 8601 format. Defaults to None.
+            :param limit (int, optional): The limitation of the returned results, defaults to 10 with a maximum of 100.
 
         Returns:
-        Dict[str, Any]: A dictionary containing the list of metadata matching the criteria.
+            Dict[str, Any]: A dictionary containing the list of metadata matching the criteria.
+
+        Raises:
+            Exception: If an error occurs during the API call. This includes HTTP errors or any other issues encountered during the request.
         """
         params = {
             "offset": offset,
@@ -765,12 +816,15 @@ class AsyncInspectorioSight:
         """
         Create Metadata.
 
-        Parameters:
-        - namespace (str): The logical type of data set by Inspectorio. Possible values are "analytics", "inspection".
-        - data (Dict[str, Any]): The data to create metadata with, conforming to the MetadataCreate schema.
+        Args:
+            :param namespace (Literal["analytics", "inspection"]): The logical type of data set by Inspectorio. Possible values are "analytics", "inspection".
+            :param data (Dict[str, Any]): The data to create metadata with, conforming to the MetadataCreate schema.
 
         Returns:
-        Dict[str, Any]: A dictionary containing the created metadata response.
+            Dict[str, Any]: A dictionary containing the created metadata response.
+
+        Raises:
+            Exception: If an error occurs during the API call. This includes HTTP errors or any other issues encountered during the request.
         """
         return await self._make_request("POST", f"/metadata/{namespace}", json=data)
 
@@ -780,15 +834,15 @@ class AsyncInspectorioSight:
         """
         Retrieve metadata for a given UID and namespace.
 
-        Parameters:
-        - namespace (Literal["analytics", "inspection"]): The logical type of data set by Inspectorio.
-        - uid (str): Unique identifier within Ecosystem + Namespace, considered as unique keys.
+        Args:
+            :param namespace (Literal["analytics", "inspection"]): The logical type of data set by Inspectorio.
+            :param uid (str): Unique identifier within Ecosystem + Namespace, considered as unique keys.
 
         Returns:
-        Dict[str, Any]: A dictionary containing the metadata if the request is successful.
+            Dict[str, Any]: A dictionary containing the metadata if the request is successful.
 
         Raises:
-        - Exception: If an error occurs during the API call. This includes HTTP errors or any other issues encountered during the request.
+            Exception: If an error occurs during the API call. This includes HTTP errors or any other issues encountered during the request.
         """
         return await self._make_request("GET", f"/metadata/{namespace}/{uid}")
 
@@ -801,16 +855,16 @@ class AsyncInspectorioSight:
         """
         Update metadata for a given UID and namespace.
 
-        Parameters:
-        - namespace (Literal["analytics", "inspection"]): The logical type of data set by Inspectorio.
-        - uid (str): Unique identifier within Ecosystem + Namespace, considered as unique keys.
-        - metadata (Dict[str, Any]): The metadata to update.
+        Args:
+            :param namespace (Literal["analytics", "inspection"]): The logical type of data set by Inspectorio.
+            :param uid (str): Unique identifier within Ecosystem + Namespace, considered as unique keys.
+            :param metadata (Dict[str, Any]): The metadata to update.
 
         Returns:
-        Dict[str, Any]: A dictionary containing the updated metadata if the request is successful.
+            Dict[str, Any]: A dictionary containing the updated metadata if the request is successful.
 
-        Raises:
-        - Exception: If an error occurs during the API call. This includes HTTP errors or any other issues encountered during the request.
+        Raises:Raises:
+            Exception: If an error occurs during the API call. This includes HTTP errors or any other issues encountered during the request.
         """
         return await self._make_request(
             "PUT", f"/metadata/{namespace}/{uid}", json=metadata
@@ -822,12 +876,15 @@ class AsyncInspectorioSight:
         """
         Delete metadata for a given UID and namespace.
 
-        Parameters:
-        - namespace (Literal["analytics", "inspection"]): The logical type of data set by Inspectorio.
-        - uid (str): Unique identifier within Ecosystem + Namespace, considered as unique keys.
+        Args:
+            :param namespace (Literal["analytics", "inspection"]): The logical type of data set by Inspectorio.
+            :param uid (str): Unique identifier within Ecosystem + Namespace, considered as unique keys.
+
+        Returns:
+            None: This method does not return any value. It completes when the metadata is successfully deleted.
 
         Raises:
-        - Exception: If an error occurs during the API call. This includes HTTP errors or any other issues encountered during the request.
+            Exception: If an error occurs during the API call. This includes HTTP errors or any other issues encountered during the request.
         """
         await self._make_request("DELETE", f"/metadata/{namespace}/{uid}")
 
@@ -837,13 +894,16 @@ class AsyncInspectorioSight:
         """
         List organizations with optional filtering by name.
 
-        Parameters:
-        - offset (int, optional): The number of items to skip before starting to collect the result set. Defaults to 0.
-        - limit (int, optional): The limit on the number of items to return in the response. Defaults to 10, with a maximum of 100.
-        - name (str, optional): Filter organizations by name.
+        Args:
+            :param offset (int, optional): The number of items to skip before starting to collect the result set. Defaults to 0.
+            :param limit (int, optional): The limit on the number of items to return in the response. Defaults to 10, with a maximum of 100.
+            :param name (str, optional): Filter organizations by name.
 
         Returns:
-        Dict[str, Any]: A dictionary containing the list of organizations.
+            Dict[str, Any]: A dictionary containing the list of organizations.
+
+        Raises:
+            Exception: If an error occurs during the API call. This includes HTTP errors or any other issues encountered during the request.
         """
 
         params = {"offset": offset, "limit": limit, "name": name}
@@ -860,11 +920,14 @@ class AsyncInspectorioSight:
         """
         Create a new organization.
 
-        Parameters:
-        - organization_data (Dict[str, Any]): A dictionary containing data of the organization to create.
+        Args:
+            :param organization_data (Dict[str, Any]): A dictionary containing data of the organization to create.
 
         Returns:
-        Dict[str, Any]: A dictionary containing the created organization's details.
+            Dict[str, Any]: A dictionary containing the created organization's details.
+
+        Raises:
+            Exception: If an error occurs during the API call. This includes HTTP errors or any other issues encountered during the request.
         """
 
         return await self._make_request(
@@ -875,11 +938,14 @@ class AsyncInspectorioSight:
         """
         Retrieve details of a specific organization.
 
-        Parameters:
-        - organization_id (str): The unique identifier of the organization.
+        Args:
+            :param organization_id (str): The unique identifier of the organization.
 
         Returns:
-        Dict[str, Any]: A dictionary containing details of the specified organization.
+            Dict[str, Any]: A dictionary containing details of the specified organization.
+
+        Raises:
+            Exception: If an error occurs during the API call. This includes HTTP errors or any other issues encountered during the request.
         """
 
         return await self._make_request("GET", f"/organizations/{organization_id}")
@@ -890,12 +956,15 @@ class AsyncInspectorioSight:
         """
         Update details of a specific organization.
 
-        Parameters:
-        - organization_id (str): The unique identifier of the organization to update.
-        - organization_data (Dict[str, Any]): A dictionary containing the update data for the organization.
+        Args:
+            :param organization_id (str): The unique identifier of the organization to update.
+            :param organization_data (Dict[str, Any]): A dictionary containing the update data for the organization.
 
         Returns:
-        Dict[str, Any]: A dictionary containing the updated details of the organization.
+            Dict[str, Any]: A dictionary containing the updated details of the organization.
+
+        Raises:
+            Exception: If an error occurs during the API call. This includes HTTP errors or any other issues encountered during the request.
         """
 
         return await self._make_request(
@@ -906,8 +975,11 @@ class AsyncInspectorioSight:
         """
         Delete a specific organization.
 
-        Parameters:
-        - organization_id (str): The unique identifier of the organization to delete.
+        Args:
+            :param organization_id (str): The unique identifier of the organization to delete.
+
+        Returns:
+            None: This method does not return any value. It completes when the organization is successfully deleted.
         """
 
         await self._make_request("DELETE", f"/organizations/{organization_id}")
@@ -916,14 +988,14 @@ class AsyncInspectorioSight:
         """
         Retrieve details for a specific purchase order.
 
-        Parameters:
-        - po_number (str): The unique identifier for the purchase order.
+        Args:
+            :param po_number (str): The unique identifier for the purchase order.
 
         Returns:
-        Dict[str, Any]: A dictionary containing the details of the purchase order if the request is successful.
+            Dict[str, Any]: A dictionary containing the details of the purchase order if the request is successful.
 
         Raises:
-        - Exception: If an error occurs during the API call or if the request is unsuccessful.
+            Exception: If an error occurs during the API call. This includes HTTP errors or any other issues encountered during the request.
         """
         return await self._make_request("GET", f"/purchase-orders/{po_number}")
 
@@ -933,15 +1005,15 @@ class AsyncInspectorioSight:
         """
         Update details for a specific purchase order.
 
-        Parameters:
-        - po_number (str): The unique identifier for the purchase order.
-        - payload (Dict[str, Any]): The data to update the purchase order with.
+        Args:
+            :param po_number (str): The unique identifier for the purchase order.
+            :param payload (Dict[str, Any]): The data to update the purchase order with.
 
         Returns:
-        Dict[str, Any]: A dictionary containing the updated details of the purchase order if the request is successful.
+            Dict[str, Any]: A dictionary containing the updated details of the purchase order if the request is successful.
 
         Raises:
-        - Exception: If an error occurs during the API call or if the request is unsuccessful.
+            Exception: If an error occurs during the API call. This includes HTTP errors or any other issues encountered during the request.
         """
         return await self._make_request(
             "PUT", f"/purchase-orders/{po_number}", json=payload
@@ -951,11 +1023,14 @@ class AsyncInspectorioSight:
         """
         Delete a specific purchase order.
 
-        Parameters:
-        - po_number (str): The unique identifier for the purchase order to be deleted.
+        Args:
+            :param po_number (str): The unique identifier for the purchase order to be deleted.
+
+        Returns:
+            None: This method does not return any value. It completes when the purchase order is successfully deleted.
 
         Raises:
-        - Exception: If an error occurs during the API call or if the request is unsuccessful.
+            Exception: If an error occurs during the API call. This includes HTTP errors or any other issues encountered during the request.
         """
         await self._make_request("DELETE", f"/purchase-orders/{po_number}")
 
@@ -965,17 +1040,17 @@ class AsyncInspectorioSight:
         """
         Update or delete a Purchase Order based on the provided action.
 
-        Parameters:
-        - po_number (str): The Purchase Order number to be updated or deleted.
-        - action (Literal["update", "delete"]): Specifies the action to be performed on the Purchase Order.
-            - "update": Updates the Purchase Order. The method behaves like a PUT request.
-            - "delete": Deletes the Purchase Order. The method behaves like a DELETE request.
+        Args:
+            :param po_number (str): The Purchase Order number to be updated or deleted.
+            :param action (Literal["update", "delete"]): Specifies the action to be performed on the Purchase Order.
+                - "update": Updates the Purchase Order. The method behaves like a PUT request.
+                - "delete": Deletes the Purchase Order. The method behaves like a DELETE request.
 
         Returns:
         Dict[str, Any]: A dictionary representing the response of the action performed.
 
         Raises:
-        - Exception: If an error occurs during the API call or if the action is not successful.
+            Exception: If an error occurs during the API call. This includes HTTP errors or any other issues encountered during the request.
         """
         return await self._make_request(
             "POST",
@@ -1003,19 +1078,22 @@ class AsyncInspectorioSight:
         filtering Time and Actions by purchase order number, status, and creation/update
         timestamps. It also supports pagination of the results.
 
-        Parameters:
-        - po_number (str, optional): Filter Time and Actions by purchase order number.
-        - offset (int, optional): The number of items to skip before starting to collect the result set.
-        - status (str, optional): Filter Time and Actions by their status. Possible values
-            are "UPCOMING", "NEW", "IN-PROGRESS", "CANCELED", "ABORTED", "COMPLETED".
-        - updated_from (str, optional): Filter Time and Actions updated from this date and time.
-        - created_to (str, optional): Filter Time and Actions created up to this date and time.
-        - updated_to (str, optional): Filter Time and Actions updated to this date and time.
-        - created_from (str, optional): Filter Time and Actions created from this date and time.
-        - limit (int, optional): The maximum number of items to return. Defaults to 10.
+        Args:
+            :param po_number (str, optional): Filter Time and Actions by purchase order number.
+            :param offset (int, optional): The number of items to skip before starting to collect the result set.
+            :param status (str, optional): Filter Time and Actions by their status. Possible values
+                are "UPCOMING", "NEW", "IN-PROGRESS", "CANCELED", "ABORTED", "COMPLETED".
+            :param updated_from (str, optional): Filter Time and Actions updated from this date and time.
+            :param created_to (str, optional): Filter Time and Actions created up to this date and time.
+            :param updated_to (str, optional): Filter Time and Actions updated to this date and time.
+            :param created_from (str, optional): Filter Time and Actions created from this date and time.
+            :param limit (int, optional): The maximum number of items to return. Defaults to 10.
 
         Returns:
-        Dict[str, Any]: A dictionary containing the list of Time and Actions matching the criteria.
+            Dict[str, Any]: A dictionary containing the list of Time and Actions matching the criteria.
+
+        Raises:
+            Exception: If an error occurs during the API call. This includes HTTP errors or any other issues encountered during the request.
         """
         params = {
             "po_number": po_number,
@@ -1040,11 +1118,14 @@ class AsyncInspectorioSight:
         """
         Retrieve details for a specific Time and Action.
 
-        Parameters:
-        - id (str): The unique identifier for the Time and Action.
+        Args:
+            :param id (str): The unique identifier for the Time and Action.
 
         Returns:
-        Dict[str, Any]: A dictionary containing the details of the Time and Action if the request is successful.
+            Dict[str, Any]: A dictionary containing the details of the Time and Action if the request is successful.
+
+        Raises:
+            Exception: If an error occurs during the API call. This includes HTTP errors or any other issues encountered during the request.
         """
         return await self._make_request("GET", f"/time-and-actions/{id}")
 
@@ -1054,12 +1135,15 @@ class AsyncInspectorioSight:
         """
         Update Time and Actions milestones.
 
-        Parameters:
-        - ta_id (str): The unique identifier for the Time and Action.
-        - data (dict): The data to update the Time and Action milestones.
+        Args:
+            :param ta_id (str): The unique identifier for the Time and Action.
+            :param data (dict): The data to update the Time and Action milestones.
 
         Returns:
-        Dict[str, Any]: A dictionary containing the response from the API after updating the milestones.
+            Dict[str, Any]: A dictionary containing the response from the API after updating the milestones.
+
+        Raises:
+            Exception: If an error occurs during the API call. This includes HTTP errors or any other issues encountered during the request.
         """
         return await self._make_request(
             "PUT", f"/time-and-actions/{ta_id}/milestones", json=data
@@ -1071,12 +1155,15 @@ class AsyncInspectorioSight:
         """
         Get Time and Actions production status.
 
-        Parameters:
-        - ta_id (str): The unique identifier for the Time and Action.
-        - productionStatusLevel (str, optional): The level of production status, either "poLevel" or "itemLevel".
+        Args:
+            :param ta_id (str): The unique identifier for the Time and Action.
+            :param productionStatusLevel (str, optional): The level of production status, either "poLevel" or "itemLevel".
 
         Returns:
-        Dict[str, Any]: A dictionary containing the Time and Actions production status.
+            Dict[str, Any]: A dictionary containing the Time and Actions production status.
+
+        Raises:
+            Exception: If an error occurs during the API call. This includes HTTP errors or any other issues encountered during the request.
         """
         params = (
             {"productionStatusLevel": productionStatusLevel}
@@ -1093,12 +1180,15 @@ class AsyncInspectorioSight:
         """
         Update Time and Actions production status.
 
-        Parameters:
-        - ta_id (str): The unique identifier for the Time and Action.
-        - data (dict): The data to update the Time and Action production status.
+        Args:
+            :param ta_id (str): The unique identifier for the Time and Action.
+            :param data (dict): The data to update the Time and Action production status.
 
         Returns:
-        Dict[str, Any]: A dictionary containing the response from the API after updating the production status.
+            Dict[str, Any]: A dictionary containing the response from the API after updating the production status.
+
+        Raises:
+            Exception: If an error occurs during the API call. This includes HTTP errors or any other issues encountered during the request.
         """
         return await self._make_request(
             "PUT", f"/time-and-actions/{ta_id}/production-status", json=data
