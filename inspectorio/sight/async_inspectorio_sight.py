@@ -67,18 +67,18 @@ class AsyncInspectorioSight:
 
     async def login(self, username: str, password: str) -> None:
         """
-        Authenticates asynchronously with the Inspectorio Sight platform using the provided
-        username and password. On successful authentication, stores the authentication token
-        for subsequent API calls.
+        Authenticates asynchronously with the Inspectorio Sight platform using the
+        provided username and password. On successful authentication, stores the
+        authentication token for subsequent API calls.
 
         Args:
             username (str): The username of the user.
             password (str): The password of the user.
 
         Raises:
-            KeyError: If the response from the API does not contain an authentication token.
-            This is indicative of a failure to authenticate, possibly due to incorrect
-            credentials or an issue with the user's account.
+            KeyError: If the response from the API does not contain an authentication
+            token. This is indicative of a failure to authenticate, possibly due to
+            incorrect credentials or an issue with the user's account.
 
             Exception: If an error occurs during the API call. This includes scenarios such
             as bad requests (400), unauthorized access (401), validation errors (422),
@@ -1298,8 +1298,8 @@ class AsyncInspectorioSight:
 
     async def list_all_metadata(self, **kwargs) -> List[Dict[str, Any]]:
         """
-        Fetches all metadata, but handles automatically API pagination. Underlying it has
-        asynchronous requests using the `list_metadata()` method.
+        Fetches all metadata, but handles automatically API pagination. Underlying it
+        has asynchronous requests using the `list_metadata()` method.
 
         Args:
             :param namespace (str): The logical type of data set by Inspectorio.
@@ -1485,8 +1485,8 @@ class AsyncInspectorioSight:
                 if pagination is working correctly on a sample (e.g. 1000 extractions)
 
         Returns:
-            List[Dict[str, Any]]: A list of dictionaries containing the list of organizations
-                matching the criteria.
+            List[Dict[str, Any]]: A list of dictionaries containing the list of
+                organizations matching the criteria.
         """
         return await self._fetch_all_with_pagination(self.list_organizations, **kwargs)
 
@@ -1747,8 +1747,8 @@ class AsyncInspectorioSight:
 
     async def list_all_time_and_actions(self, **kwargs) -> List[Dict[str, Any]]:
         """
-        Fetches all Time and Actions, but handles automatically API pagination. Underlying it has
-        asynchronous requests using the `list_time_and_actions()` method.
+        Fetches all Time and Actions, but handles automatically API pagination. Underlying
+            it has asynchronous requests using the `list_time_and_actions()` method.
 
         Args:
             :param po_number (str, optional): Filter Time and Actions by purchase order
