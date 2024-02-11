@@ -2,6 +2,10 @@ name: CI/CD Pipeline
 
 on: [push, pull_request]
 
+permissions:
+  contents: read
+  security-events: write
+
 jobs:
   pre-commit:
     name: Pre-commit Checks
@@ -40,3 +44,18 @@ jobs:
         poetry install
     - name: Run pytest
       run: poetry run pytest
+
+  security-scan:
+    name: Security Scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: python # specify languages here
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
