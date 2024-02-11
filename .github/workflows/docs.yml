@@ -38,7 +38,7 @@ jobs:
         run: poetry install --no-interaction --no-ansi
 
       - name: Generate documentation with pdoc
-        run: poetry run pdoc -o docs/ inspectorio
+        run: poetry run pdoc --docformat google -o docs/ inspectorio
 
       - uses: actions/upload-pages-artifact@v3
         with:
