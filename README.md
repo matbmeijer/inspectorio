@@ -24,11 +24,11 @@ For detailed information about the library's API, including classes, methods, an
 
 ## Installation
 
-You can install **inspectorio** directly from Github following this `pip`
+You can install **inspectorio** directly from the [Python Package Index (PyPI)](https://pypi.org/project/inspectorio/) following this `pip`
 command:
 
 ``` bash
-pip install git+https://github.com/matbmeijer/inspectorio.git
+pip install inspectorio
 ```
 
 ## Code of Conduct
