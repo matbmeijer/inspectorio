@@ -1,3 +1,4 @@
+import warnings
 from asyncio import Semaphore, gather
 from typing import Any, Callable, Dict, List, Literal, Optional, Union
 
@@ -17,7 +18,23 @@ class AsyncInspectorioSight:
         concurrent_fetches_limit: int = 10,
         **kwargs,
     ) -> None:
+        """
+        Initializes the AsyncInspectorioSight client.
+
+        :param base_url: The base URL for the Inspectorio Sight API. Can be one of three environments (production, pre-production, staging).
+        :param concurrent_fetches_limit: The maximum number of concurrent fetches allowed. Cannot exceed 20 as per Inspectorio API guidelines.
+        :param kwargs: Additional keyword arguments to be passed to the httpx.AsyncClient.
+
+        The Inspectorio API supports up to 20 concurrent asynchronous requests to optimize data integration speed.
+        """
+        # Validate and set concurrent_fetches_limit to ensure it does not exceed 20
+        if concurrent_fetches_limit > 20:
+            warnings.warn(
+                "concurrent_fetches_limit cannot be greater than 20, setting to 20."
+            )
+            concurrent_fetches_limit = 20
         self._concurrent_fetches_limit: int = concurrent_fetches_limit
+
         self._base_url: str = base_url
         self._client_kwargs: Dict[str, Any] = kwargs
         self._session: Optional[httpx.AsyncClient] = None
@@ -31,7 +48,9 @@ class AsyncInspectorioSight:
     async def __aexit__(self, exc_type, exc_val, exc_tb):
         await self._session.aclose()
 
-    async def _make_request(self, method: str, endpoint: str, **kwargs) -> dict:
+    async def _make_request(
+        self, method: str, endpoint: str, **kwargs
+    ) -> Union[Dict[str, Any], None]:
         """A generic method to make HTTP requests."""
         url = f"{self._base_url}{endpoint}"
         response = await self._session.request(
@@ -147,11 +166,7 @@ class AsyncInspectorioSight:
             criteria.
 
         Raises:
-        - HTTPError: If an error occurs during the API call.
-
-        Note:
-        The method performs an HTTP GET request to retrieve the bookings data, handling
-        pagination and filtering based on the provided parameters.
+        - Exception: If an error occurs during the API call. This includes HTTP errors or any other issues encountered during the request.
         """
         params = {
             "status": status,
@@ -205,7 +220,7 @@ class AsyncInspectorioSight:
         Dict[str, Any]: A dictionary containing the list of purchase orders matching the criteria.
 
         Raises:
-        - HTTPError: If an error occurs during the API call.
+        - Exception: If an error occurs during the API call. This includes HTTP errors or any other issues encountered during the request.
         """
         params = {
             "po_number": po_number,
@@ -231,13 +246,14 @@ class AsyncInspectorioSight:
         Create a Purchase Order with the provided data.
 
         Parameters:
-        - purchase_order_data (Dict[str, Any]): The data of the purchase order to create.
+        - purchase_order_data (Dict[str, Any]): The data for the new purchase order. Must conform to the API's expected
+            schema for purchase order creation.
 
         Returns:
         Dict[str, Any]: A dictionary containing the response from the API, typically including details of the created purchase order.
 
         Raises:
-        - HTTPError: If an error occurs during the API call.
+        - Exception: If an error occurs during the API call. This includes HTTP errors or any other issues encountered during the request.
         """
         return await self._make_request(
             "POST", "/purchase-orders", json=purchase_order_data
@@ -282,7 +298,7 @@ class AsyncInspectorioSight:
         Dict[str, Any]: A dictionary containing the list of reports matching the criteria.
 
         Raises:
-        - HTTPError: If an error occurs during the API call.
+        - Exception: If an error occurs during the API call. This includes HTTP errors or any other issues encountered during the request.
         """
         params = {
             "inspection_date_from": inspection_date_from,
@@ -475,7 +491,7 @@ class AsyncInspectorioSight:
         Dict[str, Any]: A dictionary containing the list of brands matching the criteria.
 
         Raises:
-        - HTTPError: If an error occurs during the API call.
+        - Exception: If an error occurs during the API call. This includes HTTP errors or any other issues encountered during the request.
         """
         params = {"offset": offset, "limit": limit}
         return await self._make_request("GET", "/brands", params=params)
@@ -617,10 +633,9 @@ class AsyncInspectorioSight:
         Returns:
         Dict[str, Any]: A dictionary containing the updated lab test report details if the request is successful.
 
-        This method sends a PUT request to update the specified lab test report with the provided data.
-        The data dictionary should match the schema expected by the server for lab test report updates.
-        Raises exceptions if the update fails due to reasons such as unauthorized access, validation errors,
-        report not found, or server errors.
+        Raises:
+        - Exception: If an error occurs during the API call, such as HTTP errors, validation errors, or if the lab test
+            report is not found.
         """
 
         return await self._make_request(
@@ -773,7 +788,7 @@ class AsyncInspectorioSight:
         Dict[str, Any]: A dictionary containing the metadata if the request is successful.
 
         Raises:
-        - HTTPError: If an error occurs during the API call.
+        - Exception: If an error occurs during the API call. This includes HTTP errors or any other issues encountered during the request.
         """
         return await self._make_request("GET", f"/metadata/{namespace}/{uid}")
 
@@ -795,7 +810,7 @@ class AsyncInspectorioSight:
         Dict[str, Any]: A dictionary containing the updated metadata if the request is successful.
 
         Raises:
-        - HTTPError: If an error occurs during the API call.
+        - Exception: If an error occurs during the API call. This includes HTTP errors or any other issues encountered during the request.
         """
         return await self._make_request(
             "PUT", f"/metadata/{namespace}/{uid}", json=metadata
@@ -812,7 +827,7 @@ class AsyncInspectorioSight:
         - uid (str): Unique identifier within Ecosystem + Namespace, considered as unique keys.
 
         Raises:
-        - HTTPError: If an error occurs during the API call.
+        - Exception: If an error occurs during the API call. This includes HTTP errors or any other issues encountered during the request.
         """
         await self._make_request("DELETE", f"/metadata/{namespace}/{uid}")
 
@@ -946,7 +961,7 @@ class AsyncInspectorioSight:
 
     async def update_delete_purchase_order(
         self, po_number: str, action: Literal["update", "delete"]
-    ) -> Dict[str, Any]:
+    ) -> Union[Dict[str, Any], None]:
         """
         Update or delete a Purchase Order based on the provided action.
 
@@ -955,7 +970,6 @@ class AsyncInspectorioSight:
         - action (Literal["update", "delete"]): Specifies the action to be performed on the Purchase Order.
             - "update": Updates the Purchase Order. The method behaves like a PUT request.
             - "delete": Deletes the Purchase Order. The method behaves like a DELETE request.
-        - kwargs: Additional keyword arguments to pass to the request. This can include request body for update.
 
         Returns:
         Dict[str, Any]: A dictionary representing the response of the action performed.
