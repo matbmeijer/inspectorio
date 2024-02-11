@@ -23,11 +23,11 @@ jobs:
         with:
           python-version: '3.12'
 
-      # Install dependencies and pdoc for documentation generation
-      - run: pip install -e . pdoc3
-
-      # Generate documentation with pdoc. Adjust the module path as needed.
-      - run: pdoc --html --output-dir docs inspectorio
+      # ADJUST THIS: install all dependencies (including pdoc)
+      - run: pip install -e .
+      # ADJUST THIS: build your documentation into docs/.
+      # We use a custom build script for pdoc itself, ideally you just run `pdoc -o docs/ ...` here.
+      - run: python -o docs/ inspectorio
 
       - uses: actions/upload-pages-artifact@v3
         with:
