@@ -2,6 +2,10 @@ name: CI/CD Pipeline
 
 on: [push, pull_request]
 
+permissions:
+  contents: read
+  security-events: write
+
 jobs:
   pre-commit:
     name: Pre-commit Checks
