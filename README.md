@@ -1,4 +1,4 @@
-# Inspectorio API wrapper <img src="https://developers.inspectorio.com/img/logo.svg" align="right" height=30/>
+# Inspectorio API wrapper <img src="https://developers.inspectorio.com/img/logo.svg" align="right" height=15/>
 
 [![CI/CD workflow](https://github.com/matbmeijer/inspectorio/actions/workflows/ci-cd.yml/badge.svg?style=flat-square)](https://github.com/matbmeijer/inspectorio/actions/workflows/ci-cd.yaml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
