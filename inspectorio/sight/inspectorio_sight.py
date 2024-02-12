@@ -9,6 +9,12 @@ DEFAULT_LIMIT = 10
 
 
 class InspectorioSight(BaseInspectorioSight):
+    """
+    InspectorioSight client, that uses synchronous requests to interact with the
+    Inspectorio Sight API. For batch requests with methods like `list_all_*()`,
+    it uses threading to speed up retrieval.
+    """
+
     def __init__(
         self,
         base_url: Literal[
