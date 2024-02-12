@@ -41,13 +41,13 @@ class BaseInspectorioSight(ABC):
 
         Raises:
             KeyError: If the response from the API does not contain an authentication
-            token. This is indicative of a failure to authenticate, possibly due to
-            incorrect credentials or an issue with the user's account.
+                token. This is indicative of a failure to authenticate, possibly due to
+                incorrect credentials or an issue with the user's account.
 
             Exception: If an error occurs during the API call. This includes scenarios such
-            as bad requests (400), unauthorized access (401), validation errors (422),
-            rate-limiting (429), or internal server errors (500). The exception message will
-            detail the nature of the error based on the API's response.
+                as bad requests (400), unauthorized access (401), validation errors (422),
+                rate-limiting (429), or internal server errors (500). The exception message
+                will detail the nature of the error based on the API's response.
 
         API Endpoint:
             POST /api/v1/auth/login
@@ -128,10 +128,10 @@ class BaseInspectorioSight(ABC):
 
         Raises:
             Exception: If an error occurs during the API call. This can be due to various
-            reasons such as the booking not being found (resulting in a 400 Bad Request),
-            unauthorized access (401), validation errors (422), rate-limiting (429),
-            or internal server errors (500). The exception message will include the HTTP
-            status code and a description of the error based on the API's response.
+                reasons such as the booking not being found (resulting in a 400 Bad Request),
+                unauthorized access (401), validation errors (422), rate-limiting (429),
+                or internal server errors (500). The exception message will include the HTTP
+                status code and a description of the error based on the API's response.
 
         API Endpoint:
             GET /api/v1/bookings/{booking_id}
@@ -371,7 +371,7 @@ class BaseInspectorioSight(ABC):
 
         Raises:
             Exception: If an error occurs during the API call. This includes HTTP errors
-            or any other issues encountered during the request.
+                or any other issues encountered during the request.
 
         API Endpoint:
             GET /api/v1/reports
@@ -419,7 +419,7 @@ class BaseInspectorioSight(ABC):
 
         Raises:
             Exception: If an error occurs during the API call. This includes HTTP errors
-            or any other issues encountered during the request.
+                or any other issues encountered during the request.
 
         API Endpoint:
             GET /api/v1/reports
