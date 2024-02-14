@@ -41,7 +41,9 @@ class AsyncInspectorioSight(BaseInspectorioSight):
             optimize data integration speed.
         """
         super().__init__(base_url, concurrent_fetches_limit, **kwargs)
-        self._session: Optional[httpx.AsyncClient] = None
+        self._session: Optional[httpx.AsyncClient] = httpx.AsyncClient(
+            **self._client_kwargs
+        )
 
     async def __aenter__(self):
         self._session = httpx.AsyncClient(**self._client_kwargs)

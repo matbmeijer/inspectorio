@@ -42,7 +42,7 @@ class InspectorioSight(BaseInspectorioSight):
             optimize data integration speed.
         """
         super().__init__(base_url, concurrent_fetches_limit, **kwargs)
-        self._session: Optional[httpx.Client] = None
+        self._session: Optional[httpx.Client] = httpx.Client(**self._client_kwargs)
 
     def __enter__(self):
         self._session = httpx.Client(**self._client_kwargs)
@@ -56,7 +56,9 @@ class InspectorioSight(BaseInspectorioSight):
     ) -> Union[Dict[str, Any], None]:
         """A generic method to make HTTP requests."""
         url = f"{self._base_url}{endpoint}"
-        response = self._session.request(method, url, headers=self._headers, **kwargs)
+        response = self._session.request(
+            method=method, url=url, headers=self._headers, **kwargs
+        )
         if response.is_success:
             return response.json() if response.text else {}
         else:
